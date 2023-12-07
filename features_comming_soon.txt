@@ -1,0 +1,2 @@
+- lists dict: make compatible with custom modes!
+- 
