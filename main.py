@@ -14,6 +14,7 @@ game.create()
 time.sleep(1)
 """
 #clear = lambda: os.system('cls')
+print("MASTERMIND")
 startu.p()
 menu.show()
 loop = True

@@ -30,7 +30,7 @@ def do(cmdline):
     if cmdline == "":
       return "continue"
     elif cmdline == "restart":
-      game.created_game = False
+      cmds.game_over()
       game.creation()
       return "continue"
     elif cmdline == "exit":
@@ -51,6 +51,19 @@ def do(cmdline):
       cmds.set_dif(cmdline.split(" ", 3)[2])
       cmds.lists["set level ..."]
       return "continue"
+    elif cmdline.startswith("set mind"):
+      if debug.mode == True:
+        moechtegernguess = cmdline.split(" ", 3)[2]
+        if moechtegernguess.isnumeric():
+          if len(moechtegernguess) == cmds.difficulty:
+            game.digits = ([*moechtegernguess])
+            print("done")
+        else:
+          print(c.color.RED + "Value must be numeric!" + c.color.END)
+        return "continue"
+      elif debug.mode == False:
+        print(c.color.RED + "Turn on debug mode to set mind!" + c.color.END)
+        return "continue"
     elif cmdline.startswith("set mode "):
       mode.load(cmdline.split(" ", 3)[2])
       return "continue"

@@ -24,6 +24,7 @@ def game_over():
   game.guesses_remain = game.limit if game.guesses_remain is not None else None
   game.guesses_made = 0
   game.created_game = False
+  game.digits = []
 
 def set_dif(value):
   global difficulty

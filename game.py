@@ -4,37 +4,43 @@ import time
 import coly as c
 import debug
 
-global created_game
+global created_game,digits
 created_game = False
+digits = []
 limit = None
 guesses_made = 0
 guesses_remain = 0
 
-
-def create():
-  if debug.mode == False:
+def keyden():
+  desc = input("")
+  if desc.upper() ==  "Y":
     creation()
-  elif debug.mode == True:
-    print(c.color.RED + "Starting the game was denied!" + c.color.END)
-    debug.write("Debugging mode still turned on! You may see the results.")
-    yesno = input("Continue? Y/N ")
-    if yesno.upper() == "Y":
-      creation()
-    elif yesno.upper() == "N":
-      debug.write("back to the roots")
-    else:
-      print(c.color.RED + "Answer not valid!" + c.color.END)
+  elif desc.upper() == "N":
+    debug.write("back to the roots")
   else:
-    print(c.color.RED + "Error!" + c.color.END)
+      print(c.color.RED + "Answer not valid!" + c.color.END)
+def create():
+  if created_game == False:
+    if debug.mode == False:
+      creation()
+    elif debug.mode == True:
+      print(c.color.RED + "Starting the game was denied!" + c.color.END)
+      debug.write("Debugging mode still turned on! You may see the results.")
+      print("Continue? Y/N ")
+      keyden()
+    else:
+      print(c.color.RED + "Error!" + c.color.END)
+  else:
+    print("Game already running!")
 
 
 def creation():
-  global created_game
+  global created_game,digits
   if created_game == False:
-    global digits
-    digits = []
-    for mnm in range(int(cmds.difficulty)):
-      digits.append(str(rand.randint(0, 9)))
+    if digits == []:
+      digits = []
+      for mnm in range(int(cmds.difficulty)):
+        digits.append(str(rand.randint(0, 9)))
     debug.write(digits)
     created_game = True
     print("Started game! Type in your guess!")
@@ -53,6 +59,9 @@ def guess(theory):
     getem = []
     gotem = []
     emgot = []
+    theory2 = theory
+    notem = theory
+    
     if guesses_remain == 0:
       print(c.color.RED + "You have no guesses left" + c.color.END)
       fail()
@@ -80,12 +89,17 @@ def guess(theory):
           else:
             if a == b:
               icp += 1
+              print(theory)
               gotem.append(theory[b])
+              print(theory)
+              notem.pop(b)
               debug.write(f"exact match: {digits[a]}/{a} - {theory[b]}/{b}")
               pass
             else:
               getem.append(theory[b])
-              debug.write(f"correct number in false position! {theory[b]}/{b}")
+              notem.pop(b)
+              debug.write(notem,a,b,theory,theory2)
+              debug.write("correct number in false position!",theory[b],"/",b)
               #check.append(b)
         b += 1
       a += 1
@@ -101,11 +115,15 @@ def guess(theory):
       if somenumberssomebodyguessed not in digits:
         notincluded.append(somenumberssomebodyguessed)
     debug.write(f"notincluded: {notincluded}")
-
+    debug.write(f"notem: {notem}")
+    
     for them in getemset:
       if them not in gotem:
         ccn += 1
-
+    if notem == []:
+      if icp + ccn + len(notem) != cmds.difficulty:
+        ccn += int(cmds.difficulty)-icp-ccn
+        
 
     debug.write(f"{icp}/{cmds.difficulty}")
     if icp == int(cmds.difficulty):
