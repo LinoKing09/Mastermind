@@ -23,6 +23,7 @@ def show():
   print("reset              reset settings to default")
   print("fail               give up")
   print("start              start the game")
+  print("restart            restart the game")
   print("exit               exit the game")
   print("_____________")
   print("")

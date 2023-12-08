@@ -1,9 +1,8 @@
-import os, game, cmds, time, sys
+import cmds
 import menu
-import coly as c
 import debug
-import mode
 import lookup
+import lineput
 
 #mode.load()
 #time.sleep(10)
@@ -19,24 +18,5 @@ cmds.startup()
 menu.show()
 loop = True
 while loop:
-  print("> ", end="")
-  cmdline = input("").lower()
-  comms = []
-  if "," in cmdline:
-    debug.write("more than one command detected!")
-    comms = cmdline.split(",")
-    debug.write(comms)
-  else:
-    comms.append(cmdline)
-    debug.write(comms)
-    
-  for yoiligeit in range(len(comms)):
-    debug.write(comms[yoiligeit])
-    retcmd = lookup.do(comms[yoiligeit])
-    if retcmd == "break":
-      debug.write("breakpoint")
-      loop = False
-      break
-    elif retcmd == "continue":
-      continue
+  lineput.prv()
 

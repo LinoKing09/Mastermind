@@ -5,6 +5,7 @@ import debug as db
 import lookup
 import time
 import debug
+import lineput
 
 
 def dumpling(file):
@@ -25,10 +26,12 @@ def dumpling(file):
   if data_jsn["cmds"] != "":
     if "," in data_jsn["cmds"]:
       commys = data_jsn["cmds"].split(",")
+      print("yes")
     else:
       commys = data_jsn["cmds"]
     for thermosbottle in range(len(commys)):
-      lookup.do(commys[thermosbottle])
+      print("hello:", thermosbottle)
+      lineput.prv(commys[thermosbottle])
     
 def load(tech=""):
   if tech == "":

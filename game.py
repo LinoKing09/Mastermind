@@ -4,6 +4,7 @@ import time
 import coly as c
 import debug
 
+global created_game
 created_game = False
 limit = None
 guesses_made = 0
@@ -28,14 +29,17 @@ def create():
 
 
 def creation():
-  global digits
-  digits = []
-  for mnm in range(int(cmds.difficulty)):
-    digits.append(str(rand.randint(0, 9)))
-  debug.write(digits)
   global created_game
-  created_game = True
-  print("Started game! Type in your guess!")
+  if created_game == False:
+    global digits
+    digits = []
+    for mnm in range(int(cmds.difficulty)):
+      digits.append(str(rand.randint(0, 9)))
+    debug.write(digits)
+    created_game = True
+    print("Started game! Type in your guess!")
+  else:
+    print("Game already running!")
 
 
 def guess(theory):

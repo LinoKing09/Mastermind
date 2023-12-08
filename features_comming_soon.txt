@@ -1,2 +1,2 @@
-- lists dict: make compatible with custom modes!
+- fix bug: number: 966, guess: 696 - 1 1
 - 

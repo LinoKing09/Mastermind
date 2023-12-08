@@ -29,6 +29,10 @@ def do(cmdline):
     cmdline = str(cmdline)
     if cmdline == "":
       return "continue"
+    elif cmdline == "restart":
+      game.created_game = False
+      game.creation()
+      return "continue"
     elif cmdline == "exit":
       return "break"
     elif cmdline.startswith("set limit"):
@@ -57,7 +61,7 @@ def do(cmdline):
     except Exception as e:
       print(c.color.RED + f"No such command '{str(cmdline)}' \n{str(e)}" +
             c.color.END)
-      print(
+      debug.write(
           type(e).__name__,          # TypeError
           __file__,                  # /tmp/example.py
           e.__traceback__.tb_lineno  # 2
