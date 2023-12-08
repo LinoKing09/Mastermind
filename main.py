@@ -1,7 +1,6 @@
 import cmds
 import menu
-import debug
-import lookup
+import debug, lookup, game, coly, mode
 import lineput
 
 #mode.load()
