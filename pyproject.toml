@@ -12,6 +12,7 @@ rapid-router = "^5.15.7"
 debug = "^0.3.2"
 mode = "^4.4.0"
 lookup = "^0.2"
+git-python = "^1.0.3"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md

@@ -2,6 +2,7 @@ import cmds
 import menu
 import debug, lookup, game, coly, mode
 import lineput
+import startu
 
 #mode.load()
 #time.sleep(10)
@@ -13,9 +14,9 @@ game.create()
 time.sleep(1)
 """
 #clear = lambda: os.system('cls')
-cmds.startup()
+startu.p()
 menu.show()
 loop = True
-while loop:
+while lineput.loop:
   lineput.prv()
 

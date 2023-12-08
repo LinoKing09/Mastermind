@@ -1,6 +1,6 @@
 import debug
 import lookup
-import main
+loop = True
 
 def prv(cmdline = ""):
   cmdline = cmdline.lower()
@@ -21,7 +21,8 @@ def prv(cmdline = ""):
     retcmd = lookup.do(comms[yoiligeit])
     if retcmd == "break":
       debug.write("breakpoint")
-      main.loop = False
+      loop = False
+      return "break"
       break
     elif retcmd == "continue":
       continue

@@ -26,13 +26,16 @@ def dumpling(file):
   if data_jsn["cmds"] != "":
     if "," in data_jsn["cmds"]:
       commys = data_jsn["cmds"].split(",")
-      print("yes")
+      debug.write("yes")
     else:
-      commys = data_jsn["cmds"]
+      commys = list(data_jsn["cmds"])
     for thermosbottle in range(len(commys)):
-      print("hello:", thermosbottle)
-      lineput.prv(commys[thermosbottle])
-    
+      debug.write("hello:", thermosbottle)
+      prvexit = lineput.prv(commys[thermosbottle])
+      if prvexit == "break":
+        lineput.loop = Falsevv
+        break
+
 def load(tech=""):
   if tech == "":
     jsn_cfg = filedialog.askopenfilename(
