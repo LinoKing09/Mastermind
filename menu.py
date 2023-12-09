@@ -1,17 +1,29 @@
 import json
 import coly as c
+import logln
 def get_modys():
   try:
     with open("mode_storage.json","r") as file_stor:
       mode_storager = json.load(file_stor)
   except Exception:
-    print(c.color.RED + "ERROR: Couldn't load default modes!" + c.color.END)
+    logln.red("ERROR: Couldn't load default modes!")
   else:
     for key in mode_storager:
-      print(f"set mode {key}")
+      if str(key) == "easy":
+        print(f"set mode ",end="")
+        logln.green("easy")
+      elif str(key) == "medium":
+        print(f"set mode ",end="")
+        logln.yellow("medium")
+      elif str(key) == "hard":
+        print(f"set mode ",end="")
+        logln.red("hard")
+      else:
+        print(f"set mode ",end="")
+        logln.cyan(key)
 
 def show():
-  print("cmds")
+  logln.bold("CMDS")
   print("_____________")
   get_modys()
   print("load mode          load your custom mode as json file")

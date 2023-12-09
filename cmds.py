@@ -5,6 +5,7 @@ import game
 import debug
 import coly as c
 import mode
+import logln
 
 x=None
 y=None
@@ -32,7 +33,7 @@ def set_dif(value):
     difficulty = value
     print("done")
   else:
-    print(c.color.RED + "Game currently running!" + c.color.END)
+    logln.red("Game currently running!")
     debug.write("tried to change difficulty")
 def set_lim(value):
   game.limit = value
@@ -43,7 +44,7 @@ def set_lim(value):
 def debug_mode_change():
   if debug.mode == False:
     if game.created_game == True:
-      print(c.color.RED + "Turning on Debug Mode was denied!" + c.color.END)
+      logln.red("Turning on Debug Mode was denied!")
       debug.write("The game is currently running! If you turn on Debug mode now you'll probably see the results.")
       yesno = input("Continue? Y/N ")
       if yesno.upper() == "Y":

@@ -27,6 +27,8 @@ def do(cmdline):
   else:
     debug.write("-> command")
     cmdline = str(cmdline)
+    if cmdline.startswith(" "):
+      cmdline = cmdline.replace(" ","",1)
     if cmdline == "":
       return "continue"
     elif cmdline == "restart":

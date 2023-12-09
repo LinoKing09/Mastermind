@@ -3,6 +3,7 @@ import cmds
 import time
 import coly as c
 import debug
+import logln
 
 global created_game,digits
 created_game = False
@@ -56,11 +57,7 @@ def guess(theory):
     ccn = 0
     theory = ([*theory])
     check = []
-    getem = []
-    gotem = []
-    emgot = []
-    theory2 = theory
-    notem = theory
+    queue = []
     
     if guesses_remain == 0:
       print(c.color.RED + "You have no guesses left" + c.color.END)
@@ -74,7 +71,8 @@ def guess(theory):
     debug.write("guesses made:"+str(guesses_made))
 
     print(theory, end=" - ")
-
+    
+    """
     a = 0
     while a < len(digits):
       debug.write("Loop a: " + str(a))
@@ -92,15 +90,15 @@ def guess(theory):
               print(theory)
               gotem.append(theory[b])
               print(theory)
-              notem.pop(b)
+              check.append(b)
               debug.write(f"exact match: {digits[a]}/{a} - {theory[b]}/{b}")
               pass
             else:
               getem.append(theory[b])
-              notem.pop(b)
+              #notem.pop(b)
               debug.write(notem,a,b,theory,theory2)
               debug.write("correct number in false position!",theory[b],"/",b)
-              #check.append(b)
+              check.append(b)
         b += 1
       a += 1
 
@@ -116,19 +114,48 @@ def guess(theory):
         notincluded.append(somenumberssomebodyguessed)
     debug.write(f"notincluded: {notincluded}")
     debug.write(f"notem: {notem}")
+    debug.write(emgot)
+    debug.write(check)
     
     for them in getemset:
       if them not in gotem:
         ccn += 1
+    for noway in check:
+      print(check[noway])
+      print(notem)
+      notem.pop(check[noway])
     if notem == []:
       if icp + ccn + len(notem) != cmds.difficulty:
         ccn += int(cmds.difficulty)-icp-ccn
-        
+        """
 
+    a = 0
+    while a < len(theory):
+      debug.write("Loop a: " + str(a))
+      b = 0
+      while b < len(digits):
+        debug.write("Loop b: ",b)
+        if theory[a] == digits[b]:
+          if b in check:
+            continue
+          else:
+            if a == b:
+              check.append(b)
+              icp += 1
+            else:
+              queue.append(b)
+        b += 1
+      a += 1
+
+    for waiting in queue:
+      if queue[waiting] not in check:
+        check.append(queue[waiting])
+        ccn += 1
+      
     debug.write(f"{icp}/{cmds.difficulty}")
     if icp == int(cmds.difficulty):
       print(c.color.GREEN + str(icp), " ", str(ccn) + c.color.END)
-      print(c.color.GREEN + f"attempts:     {guesses_made}" + c.color.END)
+      logln.green(f"attempts:     {guesses_made}")
       if limit != None:
         print(c.color.GREEN + f"guesses left: {guesses_remain}" + c.color.END)
       for youhavebeengoingtowwinthegame in range(3):

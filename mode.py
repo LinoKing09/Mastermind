@@ -33,7 +33,7 @@ def dumpling(file):
       debug.write("hello:", thermosbottle)
       prvexit = lineput.prv(commys[thermosbottle])
       if prvexit == "break":
-        lineput.loop = Falsevv
+        lineput.loop = False
         break
 
 def load(tech=""):

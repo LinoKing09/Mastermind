@@ -1,1 +1,1 @@
-{"level": 4, "limit": "None", "debug_mode": "False", "cmds": "start,exit"}
+{"level": 3, "limit": "None", "debug_mode": "True", "cmds": "start,set mind 966"}
