@@ -1,5 +1,6 @@
-import coly as c
+import logln
 mode =False
 def write(*message):
   if mode == True:
-    print(c.color.YELLOW + str(message) + c.color.END)
+    message = " ".join(list(message))
+    logln.yellow(message)

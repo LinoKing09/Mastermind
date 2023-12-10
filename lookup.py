@@ -2,6 +2,7 @@ import game, cmds
 import coly as c
 import debug
 import mode
+import logln
 
 def do(cmdline): 
   debug.write("checking input")
@@ -18,12 +19,9 @@ def do(cmdline):
               f"Guess too long! Please only type in {str(cmds.difficulty)} digits"
               + c.color.END)
         elif len(str(cmdline)) < int(cmds.difficulty):
-          print(
-            c.color.RED +
-            f"Guess too short! Please type in {str(cmds.difficulty)} digits"
-            + c.color.END)
+          logln.red(f"Guess too short! Please type in {str(cmds.difficulty)} digits")
     else:
-      print(c.color.RED + f"Game not started yet!" + c.color.END)
+      logln.red(f"Game not started yet!")
   else:
     debug.write("-> command")
     cmdline = str(cmdline)
@@ -41,13 +39,13 @@ def do(cmdline):
       if cmdline.split(" ", 3)[2] == "0":
         game.limit = None
       elif cmdline.split(" ", 3)[2] == " " or cmdline.split(" ", 3)[2] == "":
-        print(c.color.RED + "Value not valid!" + c.color.END)
+        logln.red("Value not valid!")
       else:
         try:
           cmds.set_lim(int(cmdline.split(" ", 3)[2]))
           cmds.lists["set limit ..."]
         except Exception as e:
-          print(c.color.RED + f"Value not valid!  \n{str(e)}" + c.color.END)
+          logln.red(f"Value not valid!  \n{str(e)}")
       return "continue"
     elif cmdline.startswith("set level"):
       cmds.set_dif(cmdline.split(" ", 3)[2])
@@ -61,11 +59,16 @@ def do(cmdline):
             game.digits = ([*moechtegernguess])
             print("done")
         else:
-          print(c.color.RED + "Value must be numeric!" + c.color.END)
+          logln.red("Value must be numeric!")
         return "continue"
       elif debug.mode == False:
-        print(c.color.RED + "Turn on debug mode to set mind!" + c.color.END)
+        logln.red("Turn on debug mode to set mind!")
         return "continue"
+    elif cmdline.startswith("set mind"):
+      if debug.mode == True:
+        print(game.digits)
+        return "continue"
+      
     elif cmdline.startswith("set mode "):
       mode.load(cmdline.split(" ", 3)[2])
       return "continue"
@@ -74,8 +77,7 @@ def do(cmdline):
       debug.write(type(cmdline))
       cmds.lists[str(cmdline)]()
     except Exception as e:
-      print(c.color.RED + f"No such command '{str(cmdline)}' \n{str(e)}" +
-            c.color.END)
+      logln.red(f"No such command '{str(cmdline)}' \n{str(e)}")
       debug.write(
           type(e).__name__,          # TypeError
           __file__,                  # /tmp/example.py

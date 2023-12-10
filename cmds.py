@@ -49,17 +49,17 @@ def debug_mode_change():
       yesno = input("Continue? Y/N ")
       if yesno.upper() == "Y":
         debug.mode = True
-        print(c.color.YELLOW + "Debug Mode on" + c.color.END)
+        debug.write("Debug Mode on")
       elif yesno.upper() == "N":
         debug.write("back")
     else:
       debug.mode = True
-      print(c.color.YELLOW + "Debug Mode on" + c.color.END)
+      debug.write("Debug Mode on")
   elif debug.mode == True:
     debug.mode = False
     print("Debug Mode off")
   else:
-    print(c.color.RED + "An error occured!" + c.color.END)
+    logln.red("An error occured!")
     
 def startup():
   default()

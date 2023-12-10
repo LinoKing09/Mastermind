@@ -30,6 +30,7 @@ def show():
   print("set level [x]      set difficulty to custom, x digits")
   print("set limit [y]      set the number of guesses allowed")
   print("set mind [z]       set the number to guess")
+  print("show mind          show the number to guess")
   print("show level         show the current difficulty")
   print("show limit         show the limit of guesses allowed")
   print("guesses remain     show the number of guesses remaining")
