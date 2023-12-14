@@ -12,18 +12,25 @@ y=None
 clear = lambda: os.system('cls')
 
 def default(cl=True):
-  if cl==True:
-    clear()
-  global difficulty,limit
-  difficulty = 3
-  game.limit = None
-  debug.mode = False
+  if game.created_game == False:
+    if cl==True:
+      clear()
+    global difficulty,limit
+    difficulty = 3
+    game.limit = None
+    debug.mode = False
+    game.cheating = False
+  
   if cl==False:
     print("done")
     
 def game_over():
   game.guesses_remain = game.limit if game.guesses_remain is not None else None
   game.guesses_made = 0
+  if game.cheating == False:
+    game.cheated = False
+  else:
+    game.cheated = True
   game.created_game = False
   game.digits = []
 
@@ -42,24 +49,27 @@ def set_lim(value):
   print("done")
 
 def debug_mode_change():
-  if debug.mode == False:
-    if game.created_game == True:
-      logln.red("Turning on Debug Mode was denied!")
-      debug.write("The game is currently running! If you turn on Debug mode now you'll probably see the results.")
-      yesno = input("Continue? Y/N ")
-      if yesno.upper() == "Y":
+  if game.cheating == True:
+    if debug.mode == False:
+      if game.created_game == True:
+        logln.red("Turning on Debug Mode was denied!")
+        debug.write("The game is currently running! If you turn on Debug mode now you'll probably see the results.")
+        yesno = input("Continue? Y/N ")
+        if yesno.upper() == "Y":
+          debug.mode = True
+          debug.write("Debug Mode on")
+        elif yesno.upper() == "N":
+          debug.write("back")
+      else:
         debug.mode = True
         debug.write("Debug Mode on")
-      elif yesno.upper() == "N":
-        debug.write("back")
+    elif debug.mode == True:
+      debug.mode = False
+      print("Debug Mode off")
     else:
-      debug.mode = True
-      debug.write("Debug Mode on")
-  elif debug.mode == True:
-    debug.mode = False
-    print("Debug Mode off")
+      logln.red("An error occured!")
   else:
-    logln.red("An error occured!")
+    logln.red("Enable cheats to turn on Debug Mode!")
     
 def startup():
   default()

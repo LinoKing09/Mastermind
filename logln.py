@@ -12,5 +12,8 @@ def green(text):
 def cyan(text):
   print(c.color.CYAN + str(text) + c.color.END)
 
+def blue(text,ende="\n"):
+  print(c.color.BLUE + str(text) + c.color.END,end=f"{ende}")
+
 def bold(text):
   print(c.color.BOLD + str(text) + c.color.END)

@@ -11,6 +11,8 @@ digits = []
 limit = None
 guesses_made = 0
 guesses_remain = 0
+cheating = False
+cheated = False
 
 def keyden():
   desc = input("")
@@ -22,15 +24,21 @@ def keyden():
       logln.red("Answer not valid!")
 def create():
   if created_game == False:
-    if debug.mode == False:
-      creation()
-    elif debug.mode == True:
-      logln.red("Starting the game was denied!")
-      debug.write("Debugging mode still turned on! You may see the results.")
-      print("Continue? Y/N ")
-      keyden()
+    if cheating == True:
+      if debug.mode == False:
+        print("Cheats are still enabled. Continue? Y/N ",end = "")
+        inner = input("")
+        if inner.upper() == "Y" or inner.upper() == "":
+          creation()
+      elif debug.mode == True:
+        logln.red("Starting the game was denied!")
+        debug.write("Debugging mode still turned on! You may see the results.")
+        print("Continue? Y/N ")
+        keyden()
+      else:
+        logln.red("Error!")
     else:
-      logln.red("Error!")
+      creation()
   else:
     print("Game already running!")
 
@@ -50,6 +58,10 @@ def creation():
 
 
 def guess(theory):
+  if cheating == True:
+    cheated = True
+  else: 
+    cheated = False
   try:
     debug.write("now guessing!")
     global created_game, guesses_remain, guesses_made
@@ -82,6 +94,7 @@ def guess(theory):
           debug.write("Loop b: ",b)
           if theory[a] == digits[b]:
             if b in check:
+              b+=1
               continue
             else:
               if a == b:
@@ -94,7 +107,7 @@ def guess(theory):
         
       waiting = 0
       while waiting < len(queue):
-        print(waiting,queue)
+        debug.write(waiting,queue)
         if queue[waiting] not in check:
           check.append(queue[waiting])
           ccn += 1
@@ -102,7 +115,11 @@ def guess(theory):
         
       debug.write(f"{icp}/{cmds.difficulty}")
       if icp == int(cmds.difficulty):
-        print(c.color.GREEN + str(icp), " ", str(ccn) + c.color.END)
+        logln.green(str(icp)+ "   "+ str(ccn))
+        if cheated == True:
+          logln.red("used cheats")
+        else:
+          logln.green("no cheats")
         logln.green(f"attempts:     {guesses_made}")
         if limit != None:
           logln.green(f"guesses left: {guesses_remain}")

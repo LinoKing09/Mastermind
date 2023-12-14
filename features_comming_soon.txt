@@ -1,2 +1,2 @@
-- fix bug: number: 966, guess: 696 - 1 1
-- 
+- tips for number to guess
+- deactivate double digits

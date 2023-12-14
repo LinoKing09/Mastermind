@@ -1,6 +1,7 @@
 import logln
 mode =False
+
 def write(*message):
   if mode == True:
-    message = " ".join(list(message))
-    logln.yellow(message)
+    message_str = " ".join(str(msg) for msg in message)
+    logln.yellow(message_str)

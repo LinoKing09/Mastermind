@@ -6,6 +6,7 @@ import lookup
 import time
 import debug
 import lineput
+import game
 
 
 def dumpling(file):
@@ -22,7 +23,14 @@ def dumpling(file):
   debug.write(data_jsn)
   cmds.set_dif(data_jsn["level"])
   cmds.set_lim(data_jsn["limit"])
-  db.mode = data_jsn["debug_mode"]
+  if data_jsn["cheats"] != None:
+    if data_jsn["cheats"] == "off":
+      game.cheating = False
+    elif data_jsn["cheats"] == "on":
+      game.cheating = True
+    elif data_jsn["cheats"] == "on+":
+      game.cheating = True
+      db.mode = True
   if data_jsn["cmds"] != "":
     if "," in data_jsn["cmds"]:
       commys = data_jsn["cmds"].split(",")
